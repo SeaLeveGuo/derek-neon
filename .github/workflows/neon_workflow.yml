@@ -76,22 +76,22 @@ jobs:
 # You can also check out https://github.com/neondatabase/schema-diff-action for more
 # information on how to use the schema diff action.
 # You can uncomment the lines below to enable the schema diff action.
-#      - name: Post Schema Diff Comment to PR
-#        uses: neondatabase/schema-diff-action@v1
-#        with:
-#          project_id: ${{ vars.NEON_PROJECT_ID }}
-#          compare_branch: preview/pr-${{ github.event.number }}-${{ needs.setup.outputs.branch }}
-#          api_key: ${{ secrets.NEON_API_KEY }}
-
-  delete_neon_branch:
-    name: Delete Neon Branch
-    needs: setup
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Delete Neon Branch
-        uses: neondatabase/delete-branch-action@v3
+      - name: Post Schema Diff Comment to PR
+        uses: neondatabase/schema-diff-action@v1
         with:
           project_id: ${{ vars.NEON_PROJECT_ID }}
-          branch: preview/pr-${{ github.event.number }}-${{ needs.setup.outputs.branch }}
+          compare_branch: preview/pr-${{ github.event.number }}-${{ needs.setup.outputs.branch }}
           api_key: ${{ secrets.NEON_API_KEY }}
+
+  # delete_neon_branch:
+  #   name: Delete Neon Branch
+  #   needs: setup
+  #   if: github.event_name == 'pull_request' && github.event.action == 'closed'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Delete Neon Branch
+  #       uses: neondatabase/delete-branch-action@v3
+  #       with:
+  #         project_id: ${{ vars.NEON_PROJECT_ID }}
+  #         branch: preview/pr-${{ github.event.number }}-${{ needs.setup.outputs.branch }}
+  #         api_key: ${{ secrets.NEON_API_KEY }}
